@@ -1,8 +1,8 @@
-# EMPLOYEE CHECK-IN
+# EMPLOYEE CHECK-IN & CHECK-OUT 
 
 > OVERVIEW
 
-This is a general architecture and workflow approach for building a Command Line Interface (CLI) based Employee Check-In System using Kotlin. The system is designed to track employee check-ins per day and ensure each employee checks in only once per day.
+This is a general architecture and workflow approach for building a Command Line Interface (CLI) based Employee Check-In and Check-Out System using Kotlin. The system is designed to track employee check-ins and check-outs per day and ensure each employee checks-in and check-outs only once per day.
 
 >  DATA CLASSES
 
@@ -16,27 +16,39 @@ This is a general architecture and workflow approach for building a Command Line
     
 **2.EmployeeAttendance**
   - employeeId :Int
-  - checkInDate :LocalDate
-  - checkInTime :LocalTime
+  - checkIn: LocalDateTime
+  - checkOut: LocalDateTime? (nullable)
 
 > FUNCTIONS
 
 **1.addEmployee()**
   - gets firstName,lastName,role,contactNumber and reportingTo from user and creates an id automatically.
-  - stores in  employeeDetails(Map) using Employee data class.
+  - Stores in employeeDetails map using DataEmployee.
 
 **2.listEmployee()**
-  - id and employeename will be returned.
+  - employee details will be returned.
     
 **3.createCheckIn()**
   - gets user id and takes current date and current time and validates id using validateId() and hasCheckedInToday().
-  - stores data in checkedInDetails map using CheckIn(Data class).
+  - checks if the employee exists and already checked in for the day.
+  - If valid, stores the check-in in checkedInDetails.
 
-**4.validateId()**
+**4.createCheckOut()**
+  - gets user id and takes current date and current time and validates id using validateId() and hasCheckedInToday().
+  - checks if the employee exists , already checked in for the day and not already checked out.
+  - If valid, updates the check-out time in checkedInDetails.
+    
+**5.validateId()**
   - checks whether id is present in employeeDetails map.
 
-**5.hasCheckedIn()**
+**6.hasCheckedIn()**
   - checks whether id is present in checkedInDetails map.
+
+**7.listCheckedInEmployees(forDate: LocalDate): List<DataEmployee>**
+  - Returns employees who have checked in today.
+
+**8.listCheckedOutEmployees(forDate: LocalDate): List<DataEmployee>**
+  - Returns employees who have checked out for a given date (default = today).
 
 > MAP
 
