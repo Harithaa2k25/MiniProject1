@@ -48,7 +48,7 @@ This is a general architecture and workflow approach for building a Command Line
   - Returns employees who have checked in today.
 
 **8.listCheckedOutEmployees(forDate: LocalDate): List<DataEmployee>**
-  - Returns employees who have checked out for a given date (default = today).
+  - Returns employees who have checked out for today.
 
 > MAP
 
