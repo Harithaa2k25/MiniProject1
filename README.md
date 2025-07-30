@@ -6,7 +6,7 @@ This is a general architecture and workflow approach for building a Command Line
 
 >  DATA CLASSES
 
-**1.Employee**
+**1.DataEmployee**
   - id :Int
   - firstName :String 
   - lastName :String
@@ -14,7 +14,7 @@ This is a general architecture and workflow approach for building a Command Line
   - contactNumber :Long
   - reportingTo: Int
     
-**2.EmployeeAttendance**
+**2.DataAttendance**
   - employeeId :Int
   - checkIn: LocalDateTime
   - checkOut: LocalDateTime? (nullable)
