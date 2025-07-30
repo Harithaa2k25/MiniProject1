@@ -50,6 +50,8 @@ This is a general architecture and workflow approach for building a Command Line
 **8.listCheckedOutEmployees(forDate: LocalDate): List<DataEmployee>**
   - Returns employees who have checked out for today.
 
+All these functions are in EmployeeSystem class
+
 > MAP
 
 **1.employeeDetails**
