@@ -2,53 +2,65 @@
 
 > OVERVIEW
 
-This is a general architecture and workflow approach for building a Command Line Interface (CLI) based Employee Check-In and Check-Out System using Kotlin. The system is designed to track employee check-ins and check-outs per day and ensure each employee checks-in and check-outs only once per day.
+This is a Kotlin-based Command Line Interface (CLI) application that manages employee check-in and check-out. It allows admins to:
+    - Add new employees.
+    - Record daily check-ins and check-outs.
+    - View attendance logs with working hours per employee.
+    - Track who checked in or checked out for any specific date.
+
+The system ensures only one check-in and one check-out per employee per day.
 
 >  DATA CLASSES
 
 **1.DataEmployee**
-  - id :Int
+  - id :String
   - firstName :String 
   - lastName :String
   - role :String
   - contactNumber :Long
-  - reportingTo: Int
+  - reportingTo: String
     
 **2.DataAttendance**
-  - employeeId :Int
+  - employeeId :String
   - checkIn: LocalDateTime
   - checkOut: LocalDateTime? (nullable)
+  - workingHours: String? = null
 
-> FUNCTIONS
+> CORE FUNCTIONS
 
-**1.addEmployee()**
-  - gets firstName,lastName,role,contactNumber and reportingTo from user and creates an id automatically.
-  - Stores in employeeDetails map using DataEmployee.
+**1. addEmployee()**
+ - Takes user input (first name, last name, role, contact number, reporting manager ID).
+  - Generates a new unique employee ID.
+  - Adds the employee to the employeeDetails map.
 
-**2.listEmployee()**
-  - employee details will be returned.
-    
-**3.createCheckIn()**
-  - gets user id and takes current date and current time and validates id using validateId() and hasCheckedInToday().
-  - checks if the employee exists and already checked in for the day.
-  - If valid, stores the check-in in checkedInDetails.
+**2. listEmployees()**
+  - Lists all the employees with their full details.
 
-**4.createCheckOut()**
-  - gets user id and takes current date and current time and validates id using validateId() and hasCheckedInToday().
-  - checks if the employee exists , already checked in for the day and not already checked out.
-  - If valid, updates the check-out time in checkedInDetails.
-    
-**5.validateId()**
-  - checks whether id is present in employeeDetails map.
+**3. createCheckIn()**
+  - Asks for Employee ID and optional date/time input.
+  - Validates the ID.
+  - Checks whether the employee already checked in for the selected date.
+  - If valid, saves the check-in timestamp in attendanceRecords.
 
-**6.hasCheckedIn()**
-  - checks whether id is present in checkedInDetails map.
+**4. createCheckOut()**
+  - Asks for Employee ID and optional date/time input.
+  - Validates the ID.
+  - Checks if the employee has checked in but not yet checked out.
+  - Validates that check-in and check-out times are not the same.
+  - Updates the check-out timestamp and calculates working hours.
 
-**7.listCheckedInEmployees(forDate: LocalDate): List<DataEmployee>**
-  - Returns employees who have checked in today.
+**5. attendanceLogWithWorkingHours()**
+  - Displays all employee attendance records for a given date.
+  - Includes check-in time, check-out time, and total working duration (e.g., 03:45:00).
 
-**8.listCheckedOutEmployees(forDate: LocalDate): List<DataEmployee>**
-  - Returns employees who have checked out for today.
+**6. validateEmployeeId(id: String): Boolean**
+  - Verifies whether an employee ID exists in employeeDetails.
+
+**7. hasCheckedInToday(id: String, date: LocalDate): Boolean**
+  - Checks whether the employee has already checked in for the given date.
+
+**8. hasCheckedOutToday(id: String, date: LocalDate): Boolean**
+  - Checks whether the employee has already checked out for the given date.
 
 There are two classes : Employee and AttendanceLog class
 
